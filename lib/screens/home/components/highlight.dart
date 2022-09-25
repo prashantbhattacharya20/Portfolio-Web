@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_web/responsive.dart';
 import '../../../components/animated_counter.dart';
 import '../../../constants.dart';
 
@@ -11,26 +12,48 @@ class HighlightsInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Highlight(
-            counter: AnimatedCounter(value: 5, text: "+"),
-            label: "GitHub Projects",
-          ),
-          Highlight(
-            counter: AnimatedCounter(value: 50, text: "+"),
-            label: "LinkedIn Connections",
-          ),
-          Highlight(
-            counter: AnimatedCounter(value: 2, text: " ",),
-            label: "Research Paper Implementation",
-          ),
-          Highlight(
-            counter: AnimatedCounter(value: 15, text: "+"),
-            label: "Stars",
-          ),
-        ],
+      child: Responsive.isMobileLarge(context) 
+      ? Column(
+          children: [
+            Row(
+              children: [
+                Highlight(
+                  counter: AnimatedCounter(value: 5, text: "+"),
+                  label: "GitHub Projects",
+                ), 
+              ],
+            ),
+            const SizedBox(height: defaultPadding),
+            Row(
+              children: [
+                Highlight(
+                  counter: AnimatedCounter(value: 15, text: "+"),
+                  label: "Stars",
+                ),
+              ],
+            )
+          ],
+        ) 
+      : Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Highlight(
+              counter: AnimatedCounter(value: 5, text: "+"),
+              label: "GitHub Projects",
+            ),
+            Highlight(
+              counter: AnimatedCounter(value: 50, text: "+"),
+              label: "LinkedIn Connections",
+            ),
+            Highlight(
+              counter: AnimatedCounter(value: 2, text: " ",),
+              label: "Research Paper Implementation",
+            ),
+            Highlight(
+              counter: AnimatedCounter(value: 15, text: "+"),
+              label: "Stars",
+            ),
+          ],
       ),
     );
   }

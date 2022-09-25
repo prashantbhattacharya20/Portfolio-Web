@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_web/responsive.dart';
 import '../../../constants.dart';
 
 class HomeBanner extends StatelessWidget {
@@ -10,7 +11,7 @@ class HomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 3,
+      aspectRatio: Responsive.isMobile(context) ? 2.5 : 3,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -27,27 +28,35 @@ class HomeBanner extends StatelessWidget {
               children: [
                 Text(
                   "Discover my Amazing \n Art Space!",
-                  style: Theme.of(context).textTheme.headline3!.copyWith(
+                  style: Responsive.isDesktop(context) 
+                  ? Theme.of(context).textTheme.headline3!.copyWith(
                     fontWeight: FontWeight.bold, 
                     color: Colors.white
-                  )
+                    )
+                  : Theme.of(context).textTheme.headline5!.copyWith(
+                    fontWeight: FontWeight.bold, 
+                    color: Colors.white
+                    )
                 ),
+                if(!Responsive.isMobileLarge(context)) 
+                  const SizedBox(height: defaultPadding / 2),
                 MyBuildAnimatedText(),
                 SizedBox(height: defaultPadding),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultPadding * 2,
-                      vertical: defaultPadding,
-                    ),
-                    backgroundColor: primaryColor,
-                  ), 
-                  child: Text(
-                    "EXPLORE NOW",
-                    style: TextStyle(color: darkColor),
+                if(!Responsive.isMobileLarge(context)) 
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 2,
+                        vertical: defaultPadding,
+                      ),
+                      backgroundColor: primaryColor,
+                    ), 
+                    child: Text(
+                      "EXPLORE NOW",
+                      style: TextStyle(color: darkColor),
+                    )
                   )
-                )
               ],
             ),
           )
@@ -66,29 +75,44 @@ class MyBuildAnimatedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.subtitle2!,
+      maxLines: 1,
       child: Row(
         children: [
-          FlutterCodedText(),
-          SizedBox(width: defaultPadding / 2,),
+          if(!Responsive.isMobileLarge(context)) FlutterCodedText(),
+          if(!Responsive.isMobileLarge(context)) SizedBox(width: defaultPadding / 2,),
           Text("I build a "),
-          AnimatedTextKit(
-            animatedTexts: [
-              TyperAnimatedText(
-                "AI based radio app",
-                speed: Duration(milliseconds: 60),
-              ),
-              TyperAnimatedText(
-                "Catalogue based Photography app UI",
-                speed: Duration(milliseconds: 60),
-              ),
-              TyperAnimatedText(
-                "Responsive web and mobile portfolio app",
-                speed: Duration(milliseconds: 60),
-              ),
-            ],
-          ),
+          Responsive.isMobile(context) 
+            ? Expanded(child: AnimatedText())
+            : AnimatedText(),
+          if(!Responsive.isMobileLarge(context))  SizedBox(width: defaultPadding / 2),
         ],
       ),
+    );
+  }
+}
+
+class AnimatedText extends StatelessWidget {
+  const AnimatedText({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedTextKit(
+      animatedTexts: [
+        TyperAnimatedText(
+          "AI based radio app",
+          speed: Duration(milliseconds: 60),
+        ),
+        TyperAnimatedText(
+          "Catalogue based Photography app UI",
+          speed: Duration(milliseconds: 60),
+        ),
+        TyperAnimatedText(
+          "Responsive web and mobile portfolio app",
+          speed: Duration(milliseconds: 60),
+        ),
+      ],
     );
   }
 }
