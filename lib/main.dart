@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/constants.dart';
+import 'package:portfolio_web/screens/home/home_screen.dart';
 import 'package:portfolio_web/screens/main/main_screen.dart';
 
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
             ),
       ),
 
-       home: MainScreen(),
+       home: HomeScreen(),
       
     );
   }
