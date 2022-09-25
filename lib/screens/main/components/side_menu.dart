@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio_web/constants.dart';
 import 'package:portfolio_web/screens/main/components/skills.dart';
-import '../../../components/animated_progress_indicator.dart';
 import 'area_info_text.dart';
 import 'coding.dart';
 import 'knowledges.dart';
